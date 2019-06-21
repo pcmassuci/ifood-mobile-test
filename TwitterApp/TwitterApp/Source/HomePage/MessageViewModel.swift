@@ -9,31 +9,44 @@
 import Foundation
 
 protocol MessageItemPresentable {
-    var messageText: String? { get }
-    var user: String?  { get }
+    var messageText: String { get }
+    var user: String  { get }
 }
 
-struct MessageItemViewModel: MessageItemPresentable {
-    var messageText: String? = "0"
-    var user: String?
+class MessageItemViewModel: MessageItemPresentable {
+    var messageText: String
+    var user: String
+    
+    init(message: Message) {
+        self.messageText = message.messageText
+        self.user = message.user
+    }
 }
 
-protocol MessageItemViewDelegate {
-    func onViewAtualize() -> ()
+protocol MessageViewDelegate {
+    func onViewAtualize(newValue: String) -> ()
 }
-struct MessageViewModel {
+
+protocol MessageViewPresentable {
+    var newMessageValue: String? { get }
+}
+
+class MessageViewModel: MessageViewPresentable {
+    
+    var newMessageValue: String?
+    var items: [MessageItemPresentable] = []
+
     init() {
-        let item1 = MessageItemViewModel(messageText: "Hue Hue", user: "Br")
-        let item2 = MessageItemViewModel(messageText: "hakuna matata", user: "Timão")
+        let message1 = Message(messageText: "Hakuna Matata", user: "Timão")
+        let message2 = Message(messageText: "Não é a mamãe", user: "Baby")
+        let item1 = MessageItemViewModel(message: message1)
+        let item2 = MessageItemViewModel(message: message2 )
         items.append(contentsOf: [item1, item2])
     }
-    var newItem: String?
-    var items: [MessageItemPresentable] = []
 }
 
-extension MessageViewModel: MessageItemViewDelegate {
-    func onViewAtualize() {
-
+extension MessageViewModel: MessageViewDelegate {
+    func onViewAtualize(newValue: String) {
+        
     }
-    
 }

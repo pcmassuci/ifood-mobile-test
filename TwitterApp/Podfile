@@ -4,7 +4,10 @@
 target 'TwitterApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
+  pod 'SwiftLint'
+  pod 'Alamofire', '~> 4.5.1'
+  pod 'TwitterKit'
+  pod 'SwiftyJSON', '~> 4.0 '
   # Pods for TwitterApp
 
   target 'TwitterAppTests' do
