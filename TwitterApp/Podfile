@@ -7,7 +7,8 @@ target 'TwitterApp' do
   pod 'SwiftLint'
   pod 'Alamofire', '~> 4.5.1'
   pod 'TwitterKit'
-  pod 'SwiftyJSON', '~> 4.0 '
+  pod 'SwiftyJSON', '~> 4.2.0'
+
   # Pods for TwitterApp
 
   target 'TwitterAppTests' do
