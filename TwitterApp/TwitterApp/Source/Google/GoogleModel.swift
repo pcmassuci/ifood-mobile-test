@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class GoogleModel: GoogleModalProtocol {
     func getSentiment(message: String, completion: @escaping (Sentiment) -> Void) {
-        let apiKey = "AIzaSyAsbl5vK66YRYS58skLk9PfVMRsm4YS3Gs"
+        let apiKey = "AIzaSyDLgw3-HAS1iD7lmUsMHr7shohDSETVAXQ"
         let urlString = "https://language.googleapis.com/v1/documents:analyzeSentiment?key=\(apiKey)"
         let url = URL(string: urlString)!
         
@@ -44,6 +44,8 @@ class GoogleModel: GoogleModalProtocol {
                 }
         }
     }
+    
+    
 }
 
 

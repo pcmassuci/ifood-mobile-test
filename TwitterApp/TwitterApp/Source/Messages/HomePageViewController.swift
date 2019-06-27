@@ -80,21 +80,11 @@ extension HomePageViewController {
 extension HomePageViewController {
     
     func fetchData(fromUser user: String) {
-        let dispatchGroup = DispatchGroup()
-        var array = [Message]()
-        dispatchGroup.enter()
-        twitterModel.getTimeline(fromUser: user) { messages, error in
-           array.append(contentsOf: messages)
-            dispatchGroup.leave()
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            for (index, message) in array.enumerated() {
-                self.sentimentModel.getSentiment(message: message.messageText, completion: { sentiment in
-                    array[index].sentiment = sentiment
-                })
-            }
-            self.viewModel?.onViewAtualize(messages: array)
+        let message = Message(messageText: "bacon")
+        self.viewModel?.onViewAtualize(messages: [message])
+
+        MessageAnalizeModel().getSentimentMessages(user: user) { messages in
+            self.viewModel?.onViewAtualize(messages: messages)
             self.messagesTableview?.reloadData()
         }
     }

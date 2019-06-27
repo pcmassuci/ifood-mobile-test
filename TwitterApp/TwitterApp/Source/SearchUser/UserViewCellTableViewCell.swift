@@ -21,8 +21,6 @@ class UserViewCellTableViewCell: UITableViewCell {
     func configure(withViewModel viewModel: UserItemPresentable) -> (Void) {
         screenName?.text = viewModel.screenName
         userName?.text = viewModel.name
-        let url = URL(fileURLWithPath: viewModel.image)
-        profileImage?.load(url: url)
         setupDefinitions()
     }
 }
