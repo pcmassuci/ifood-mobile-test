@@ -15,7 +15,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
             if session != nil {
                 self.performSegue(withIdentifier: Segues.loginToHomePage, sender: nil)

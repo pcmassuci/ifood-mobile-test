@@ -7,13 +7,16 @@
 //
 
 import TwitterKit
-import SwiftyJSON
 import UIKit
 
 class HomePageViewController: UIViewController {
     @IBOutlet weak var messagesTableview: UITableView?
+    private lazy var twitterModel: TwitterModelProtocol =  TwitterModel()
+    private lazy var sentimentModel: GoogleModalProtocol =  GoogleModel()
+
+    private var screenName: String?
+    
     var viewModel: MessageViewModel?
-    var accessToken: String! = ""
     
     struct Constants {
         static let identifier = "messageCellIdentifier"
@@ -22,29 +25,19 @@ class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let button = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(composeTwitter))
-        self.navigationItem.rightBarButtonItem = button
-        
-    
         messagesTableview?.dataSource = self
-        
+        messagesTableview?.rowHeight = UITableView.automaticDimension
+        messagesTableview?.estimatedRowHeight = 100
         let nib = UINib(nibName: Constants.nibName, bundle: nil)
-        
         messagesTableview?.register(nib, forCellReuseIdentifier: Constants.identifier)
         viewModel = MessageViewModel()
-        let client = TWTRAPIClient()
-        let statusesShowEndpoint = "https://api.twitter./1.1/statuses.json"
-        let params = ["id" : "20"]
-        var clientError: NSError?
+        guard let sName = screenName else { return }
         
-        let request = client.urlRequest(withMethod: "GET", urlString: statusesShowEndpoint, parameters: params, error: &clientError)
-        client.sendTwitterRequest(request) { (response, data, connectionError) in
-            print("error")
-        }
-        
-        do {
-
-        }
+        fetchData(fromUser: sName)
+    }
+    
+    func setup(WithScreenName screenName: String) {
+        self.screenName = screenName
     }
 }
 
@@ -86,26 +79,23 @@ extension HomePageViewController {
 
 extension HomePageViewController {
     
-    func get() {
+    func fetchData(fromUser user: String) {
+        let dispatchGroup = DispatchGroup()
+        var array = [Message]()
+        dispatchGroup.enter()
+        twitterModel.getTimeline(fromUser: user) { messages, error in
+           array.append(contentsOf: messages)
+            dispatchGroup.leave()
+        }
         
-        let client = TWTRAPIClient()
-        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/show.json"
-        let params = ["id": "20"]
-        var clientError : NSError?
-        
-        let request = client.urlRequest(withMethod: "GET", url: statusesShowEndpoint, parameters: params, error: &clientError)
-        
-        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-            if connectionError != nil {
-                print("Error: \(connectionError)")
+        dispatchGroup.notify(queue: .main) {
+            for (index, message) in array.enumerated() {
+                self.sentimentModel.getSentiment(message: message.messageText, completion: { sentiment in
+                    array[index].sentiment = sentiment
+                })
             }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: [])
-                print("json: \(json)")
-            } catch let jsonError as NSError {
-                print("json error: \(jsonError.localizedDescription)")
-            }
-        }    }
-    
+            self.viewModel?.onViewAtualize(messages: array)
+            self.messagesTableview?.reloadData()
+        }
+    }
 }

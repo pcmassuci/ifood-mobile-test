@@ -9,14 +9,18 @@
 import Foundation
 import UIKit
 
+enum Sentiment {
+    case none
+    case happy
+    case angry
+}
+
 struct Message {
     var messageText: String
-    var user: String
-//    var image: UIImage
+    var sentiment: Sentiment
     
-    init(messageText: String, user: String) {
+    init(messageText: String) {
         self.messageText = messageText
-        self.user = user
+        sentiment = .none
     }
-    
 }

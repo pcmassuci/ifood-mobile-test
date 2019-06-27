@@ -20,7 +20,7 @@ class TwitterModel: TwitterModelProtocol {
     
     func findUsers(fromString string: String, completion: @escaping UserCompletion) {
         var users: [User] = []
-        let params = ["q":"\(string)"]
+        let params = ["q":"\(string)", "exclude_replies": "true"]
         var error: NSError?
         let req = client.urlRequest(withMethod: "GET", urlString: ApiRoutes.UserSearch, parameters: params, error: &error)
         
@@ -44,7 +44,6 @@ class TwitterModel: TwitterModelProtocol {
                 }
                 completion(users, error)
             }
-            
         })
     }
     

@@ -9,7 +9,10 @@
 import UIKit
 
 class MessageItemTableViewCell: UITableViewCell {
-     @IBOutlet weak var messageLabel: UILabel?
+
+    @IBOutlet private weak var messageLabel: UILabel?
+    @IBOutlet private weak var userName: UILabel?
+    @IBOutlet private weak var ematicon: UILabel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,5 +27,13 @@ class MessageItemTableViewCell: UITableViewCell {
     
     func configure(withViewModel viewModel: MessageItemPresentable) -> (Void) {
         messageLabel?.text = viewModel.messageText
+        switch viewModel.sentiment {
+        case .happy:
+            backgroundColor = .yellow
+        case .angry:
+            backgroundColor = .red
+        default:
+            backgroundColor = .white
+        }
     }
 }

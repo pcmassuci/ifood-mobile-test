@@ -10,21 +10,21 @@ import Foundation
 
 protocol MessageItemPresentable {
     var messageText: String { get }
-    var user: String  { get }
+    var sentiment: Sentiment  { get }
 }
 
 class MessageItemViewModel: MessageItemPresentable {
+    var sentiment: Sentiment
     var messageText: String
-    var user: String
     
     init(message: Message) {
-        self.messageText = message.messageText
-        self.user = message.user
+        messageText = message.messageText
+        sentiment = message.sentiment
     }
 }
 
 protocol MessageViewDelegate {
-    func onViewAtualize(newValue: String) -> ()
+    func onViewAtualize(messages: [Message]) -> ()
 }
 
 protocol MessageViewPresentable {
@@ -37,16 +37,18 @@ class MessageViewModel: MessageViewPresentable {
     var items: [MessageItemPresentable] = []
 
     init() {
-        let message1 = Message(messageText: "Hakuna Matata", user: "Timão")
-        let message2 = Message(messageText: "Não é a mamãe", user: "Baby")
-        let item1 = MessageItemViewModel(message: message1)
-        let item2 = MessageItemViewModel(message: message2 )
-        items.append(contentsOf: [item1, item2])
+        let message = Message(messageText: "remember drink water")
+        let item = MessageItemViewModel(message: message)
+        items.append(item)
     }
 }
 
 extension MessageViewModel: MessageViewDelegate {
-    func onViewAtualize(newValue: String) {
-        
+    func onViewAtualize(messages: [Message]) {
+        items.removeAll()
+        for message in messages {
+            let item = MessageItemViewModel(message: message)
+            items.append(item)
+        }
     }
 }
