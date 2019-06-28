@@ -52,9 +52,12 @@ class TwitterModel: TwitterModelProtocol {
         let parameters = ["screen_name": "\(user)", "count": "10"]
         var error: NSError?
         
-        let req = client.urlRequest(withMethod: "GET", urlString: ApiRoutes.UserTimeline, parameters: parameters, error: &error)
+        let req = client.urlRequest(withMethod: "GET",
+                                    urlString: ApiRoutes.UserTimeline,
+                                    parameters: parameters,
+                                    error: &error)
         
-        client.sendTwitterRequest(req, completion: { response, data, error in
+        client.sendTwitterRequest(req, completion: { response, data, _ in
             if error == nil {
                 guard let unwrapData = data else { return }
                 

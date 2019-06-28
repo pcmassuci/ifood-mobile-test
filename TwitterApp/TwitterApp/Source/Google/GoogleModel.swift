@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-
 class GoogleModel: GoogleModalProtocol {
     func getSentiment(message: String, completion: @escaping (Sentiment) -> Void) {
         let apiKey = "AIzaSyDLgw3-HAS1iD7lmUsMHr7shohDSETVAXQ"
@@ -19,9 +18,9 @@ class GoogleModel: GoogleModalProtocol {
         
         let parameters =
             [ "document": [
-                "type":"PLAIN_TEXT",
-                "content": message ],
-              "encodingType": "UTF8"] as [String : Any]
+                "type": "PLAIN_TEXT",
+                "content": message],
+              "encodingType": "UTF8"] as [String: Any]
         
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in

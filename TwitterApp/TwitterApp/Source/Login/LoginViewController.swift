@@ -19,8 +19,7 @@ class LoginViewController: UIViewController {
             if session != nil {
                 self.performSegue(withIdentifier: Segues.loginToHomePage, sender: nil)
             } else {
-                let errorDescription = error?.localizedDescription ?? "unknown"
-                print("error: \(errorDescription)");
+                let _ = error?.localizedDescription ?? "unknown"
             }
         })
         logInButton.center = self.view.center
@@ -30,21 +29,21 @@ class LoginViewController: UIViewController {
     
     func beforeLogin() {
         
-        let client = TWTRAPIClient()
-        let ab = TWTRUserTimelineDataSource(screenName: "", apiClient: client)
-        
-        client.loadTweet(withID: ab.apiClient.userID!) { [weak self] (tweet, error) in
-            guard let self = self else { return }
-            if let t = tweet {
-                if let tweetView = self.tweetView {
-                    tweetView.configure(with: t)
-                } else {
-                    self.tweetView = TWTRTweetView(tweet: t, style: TWTRTweetViewStyle.regular)
-                }
-            } else {
-                print("Failed to load Tweet:)")
+        //        let client = TWTRAPIClient()
+        //        let ab = TWTRUserTimelineDataSource(screenName: "", apiClient: client)
+        //
+        //        client.loadTweet(withID: ab.apiClient.userID!) { [weak self] (tweet, error) in
+        //            guard let self = self else { return }
+        //            if let t = tweet {
+        //                if let tweetView = self.tweetView {
+        //                    tweetView.configure(with: t)
+        //                } else {
+        //                    self.tweetView = TWTRTweetView(tweet: t, style: TWTRTweetViewStyle.regular)
+        //                }
+        //            } else {
+        //                print("Failed to load Tweet:)")
+        //            }
+        //        }
             }
-        }
-    }
     
 }

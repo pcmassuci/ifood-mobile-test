@@ -10,7 +10,7 @@ import Foundation
 
 protocol MessageItemPresentable {
     var messageText: String { get }
-    var sentiment: Sentiment  { get }
+    var sentiment: Sentiment { get }
 }
 
 class MessageItemViewModel: MessageItemPresentable {
@@ -24,7 +24,7 @@ class MessageItemViewModel: MessageItemPresentable {
 }
 
 protocol MessageViewDelegate {
-    func onViewAtualize(messages: [Message]) -> ()
+    func onViewAtualize(messages: [Message]) -> Void
 }
 
 protocol MessageViewPresentable {

@@ -18,19 +18,7 @@ class UserViewCellTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configure(withViewModel viewModel: UserItemPresentable) -> (Void) {
-        screenName?.text = viewModel.screenName
-        userName?.text = viewModel.name
-        setupDefinitions()
-    }
-}
-
-extension UserViewCellTableViewCell: DefinitionsOfView {
-    func defineFonts() {
-        
-    }
-    
-    func defineColors() {
-
+    func configure(withViewModel viewModel: UserItemPresentable) {
+        screenName?.text = viewModel.name
     }
 }
