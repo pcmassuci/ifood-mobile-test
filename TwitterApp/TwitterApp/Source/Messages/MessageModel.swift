@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 enum Sentiment {
-    case none
+    case neutral
     case happy
-    case angry
+    case sad
 }
 
 struct Message {
@@ -21,6 +21,6 @@ struct Message {
     
     init(messageText: String) {
         self.messageText = messageText
-        sentiment = .none
+        sentiment = .neutral
     }
 }

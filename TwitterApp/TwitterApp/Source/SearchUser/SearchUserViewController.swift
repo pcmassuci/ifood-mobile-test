@@ -14,6 +14,7 @@ class SearchUserViewController: UIViewController {
     private lazy var twitterModel: TwitterModelProtocol = TwitterModel()
     
     var viewModel: UserViewModel?
+    
     struct Constants {
         static let identifier = "userCellIdentifier"
         static let withoutUserIdentifier = "withouUserCellIdentifier"
@@ -22,12 +23,23 @@ class SearchUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewDidLoad()
+    }
+    
+    private func setupViewDidLoad() {
         usersTableView?.dataSource = self
         usersTableView?.delegate = self
         let nib = UINib(nibName: Constants.nibName, bundle: nil)
         usersTableView?.register(nib, forCellReuseIdentifier: Constants.identifier)
         viewModel = UserViewModel()
         seachView.delegate = self
+        usersTableView?.separatorStyle = .none
+        self.navigationController?.navigationBar.backgroundColor = .navy
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.barStyle = .blackTranslucent
+        seachView.backgroundColor = .navy
+        navigationItem.setHidesBackButton(true, animated:true)
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,6 +98,11 @@ extension SearchUserViewController: UITableViewDelegate {
 extension SearchUserViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard var string = searchBar.text else { return }
+        if string.last == "\\" {
+        string = string.replacingOccurrences(of: "\\", with: "")
+            searchBar.text = string
+            return
+        }
         string = string.replacingOccurrences(of: " ", with: "%20")
         if string.count > 3 {
             atualizeTab(user: string)

@@ -25,9 +25,15 @@ class HomePageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewDidLoad()
+    }
+
+    private func setupViewDidLoad() {
         messagesTableview?.dataSource = self
         messagesTableview?.rowHeight = UITableView.automaticDimension
         messagesTableview?.estimatedRowHeight = 100
+        messagesTableview?.tableFooterView = UIView(frame: .zero)
+
         let nib = UINib(nibName: Constants.nibName, bundle: nil)
         messagesTableview?.register(nib, forCellReuseIdentifier: Constants.identifier)
         viewModel = MessageViewModel()
@@ -62,27 +68,8 @@ extension HomePageViewController: UITableViewDataSource {
 }
 
 extension HomePageViewController {
-    @objc
-    private func composeTwitter() {
-        let composer = TWTRComposer()
-        composer.setText("Isso é um teste")
-        composer.show(from: self) { (result) in
-            if result == .cancelled {
-                print("send twitter")
-            } else {
-                print("Cancel Twitter")
-
-            }
-        }
-    }
-}
-
-extension HomePageViewController {
     
     func fetchData(fromUser user: String) {
-        let message = Message(messageText: "bacon")
-        self.viewModel?.onViewAtualize(messages: [message])
-
         MessageAnalizeModel().getSentimentMessages(user: user) { messages in
             self.viewModel?.onViewAtualize(messages: messages)
             self.messagesTableview?.reloadData()

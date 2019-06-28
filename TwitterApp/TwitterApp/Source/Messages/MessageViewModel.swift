@@ -35,12 +35,6 @@ class MessageViewModel: MessageViewPresentable {
     
     var newMessageValue: String?
     var items: [MessageItemPresentable] = []
-
-    init() {
-        let message = Message(messageText: "remember drink water")
-        let item = MessageItemViewModel(message: message)
-        items.append(item)
-    }
 }
 
 extension MessageViewModel: MessageViewDelegate {

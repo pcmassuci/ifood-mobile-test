@@ -20,24 +20,36 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDY-Si-2YC">
-                        <rect key="frame" x="26" y="21" width="268" height="22"/>
+                        <rect key="frame" x="66" y="0.0" width="228" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="228" id="8sn-1h-CzM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRr-kf-Vbf">
+                        <rect key="frame" x="10" y="10" width="42" height="23.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ZDY-Si-2YC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="1nC-Pj-5Xp"/>
-                    <constraint firstItem="ZDY-Si-2YC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="EO9-c0-1D9"/>
-                    <constraint firstItem="ZDY-Si-2YC" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" constant="10" id="QeS-29-d9J"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ZDY-Si-2YC" secondAttribute="trailing" constant="10" id="Qx2-tH-jIa"/>
+                    <constraint firstItem="ZDY-Si-2YC" firstAttribute="leading" secondItem="iRr-kf-Vbf" secondAttribute="trailing" constant="14" id="Aiq-IN-5ti"/>
+                    <constraint firstItem="iRr-kf-Vbf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Sg4-Rm-DCj"/>
+                    <constraint firstAttribute="bottom" secondItem="iRr-kf-Vbf" secondAttribute="bottom" constant="10" id="dKs-tn-uAY"/>
+                    <constraint firstItem="ZDY-Si-2YC" firstAttribute="centerY" secondItem="iRr-kf-Vbf" secondAttribute="centerY" id="h9j-dU-hXo"/>
+                    <constraint firstItem="iRr-kf-Vbf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="mEX-TY-2tq"/>
+                    <constraint firstItem="ZDY-Si-2YC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xNO-qJ-rkk"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="emoticon" destination="iRr-kf-Vbf" id="smI-7I-sU0"/>
                 <outlet property="messageLabel" destination="ZDY-Si-2YC" id="aqT-6y-LLk"/>
             </connections>
-            <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>
+            <point key="canvasLocation" x="-30.399999999999999" y="66.566716641679164"/>
         </tableViewCell>
     </objects>
 </document>

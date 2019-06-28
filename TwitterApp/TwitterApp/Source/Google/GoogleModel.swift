@@ -35,9 +35,9 @@ class GoogleModel: GoogleModalProtocol {
                     if value > 0.5 {
                         completion(.happy)
                     } else if value < -0.5 {
-                        completion(.angry)
+                        completion(.sad)
                     } else {
-                        completion(.none)
+                        completion(.neutral)
                     }
                 } catch {
                     print("erro" )

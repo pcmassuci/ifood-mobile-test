@@ -11,29 +11,27 @@ import UIKit
 class MessageItemTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var messageLabel: UILabel?
-    @IBOutlet private weak var userName: UILabel?
-    @IBOutlet private weak var ematicon: UILabel?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet private weak var emoticon: UILabel?
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-    }
-    
     func configure(withViewModel viewModel: MessageItemPresentable) -> (Void) {
         messageLabel?.text = viewModel.messageText
         switch viewModel.sentiment {
         case .happy:
             backgroundColor = .yellow
-        case .angry:
-            backgroundColor = .red
-        default:
-            backgroundColor = .white
+            emoticon?.text = "😃"
+            messageLabel?.textColor = .gray
+
+        case .sad:
+            backgroundColor = .blue
+            emoticon?.text = "😔"
+            messageLabel?.textColor = .white
+            
+        case .neutral:
+            backgroundColor = .gray
+            emoticon?.text = "😐"
+            messageLabel?.textColor = .white
+
         }
     }
 }

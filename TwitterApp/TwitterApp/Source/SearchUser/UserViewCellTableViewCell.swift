@@ -33,7 +33,4 @@ extension UserViewCellTableViewCell: DefinitionsOfView {
     func defineColors() {
 
     }
-    
-    
-    
 }
